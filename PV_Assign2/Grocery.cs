@@ -37,9 +37,21 @@ namespace PV_Assign2
             }
         }
 
+        public Grocery(string anyItemName, string anyItemCode, double anyUnitPrice, int anyStartingQty,
+                       int anyQtyMinForRestock, int anyQtySold, int anyQtyRestocked)
+        {
+            ItemName = anyItemName;
+            ItemCode = anyItemCode;
+            UnitPrice = anyUnitPrice;
+            StartingQty = anyStartingQty;
+            QtyMinForRestock = anyQtyMinForRestock;
+            QtySold = anyQtySold;
+            QtyRestocked = anyQtyRestocked;
+        }
+
         public override string ToString()
         {
-            string outputStr = "{0, -20}{1, -10}{2, -10}{3, -10}{4, -10}{5, -10}{6, -10}{7, -10}{8, -10}";
+            string outputStr = "{0, -25}{1, -15}{2, -15:C2}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15:C2}";
             return String.Format(outputStr, ItemName, ItemCode, UnitPrice, StartingQty, QtyMinForRestock,
                                             QtySold, QtyRestocked, QtyHand, TotalSales);
         }

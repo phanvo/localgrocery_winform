@@ -52,19 +52,19 @@
             // 
             // groceryListBox
             // 
-            this.groceryListBox.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groceryListBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groceryListBox.FormattingEnabled = true;
-            this.groceryListBox.ItemHeight = 20;
-            this.groceryListBox.Location = new System.Drawing.Point(39, 83);
+            this.groceryListBox.ItemHeight = 18;
+            this.groceryListBox.Location = new System.Drawing.Point(12, 65);
             this.groceryListBox.Name = "groceryListBox";
-            this.groceryListBox.Size = new System.Drawing.Size(1235, 144);
+            this.groceryListBox.Size = new System.Drawing.Size(1377, 238);
             this.groceryListBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(453, 19);
+            this.label1.Location = new System.Drawing.Point(480, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(444, 42);
             this.label1.TabIndex = 1;
@@ -74,7 +74,7 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.groupBox1.Controls.Add(this.LoadDataButton);
-            this.groupBox1.Location = new System.Drawing.Point(82, 255);
+            this.groupBox1.Location = new System.Drawing.Point(101, 318);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(228, 122);
             this.groupBox1.TabIndex = 2;
@@ -101,7 +101,7 @@
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Location = new System.Drawing.Point(357, 254);
+            this.groupBox2.Location = new System.Drawing.Point(376, 317);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(617, 179);
             this.groupBox2.TabIndex = 3;
@@ -173,7 +173,7 @@
             this.groupBox3.Controls.Add(this.button7);
             this.groupBox3.Controls.Add(this.button6);
             this.groupBox3.Controls.Add(this.button5);
-            this.groupBox3.Location = new System.Drawing.Point(1026, 254);
+            this.groupBox3.Location = new System.Drawing.Point(1045, 317);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(248, 200);
             this.groupBox3.TabIndex = 4;
@@ -212,7 +212,7 @@
             this.label4.BackColor = System.Drawing.Color.DarkGray;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(357, 454);
+            this.label4.Location = new System.Drawing.Point(376, 508);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(617, 62);
             this.label4.TabIndex = 5;
@@ -224,7 +224,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PeachPuff;
-            this.ClientSize = new System.Drawing.Size(1319, 525);
+            this.ClientSize = new System.Drawing.Size(1401, 580);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
