@@ -16,5 +16,19 @@ namespace PV_Assign2
         {
             InitializeComponent();
         }
+
+        private void LoadDataButton_Click(object sender, EventArgs e)
+        {
+            Grocery a = new Grocery();
+            a.ItemName = "asdasaf";
+            a.ItemCode = "778237-32423-2";
+            a.UnitPrice = 33.7;
+            a.StartingQty = 11;
+            a.QtyMinForRestock = 5;
+            a.QtySold = 0;
+            a.QtyRestocked = 8;
+
+            groceryListBox.Items.Add(a);
+        }
     }
 }
