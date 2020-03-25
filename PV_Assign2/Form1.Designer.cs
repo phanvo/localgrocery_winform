@@ -37,14 +37,14 @@
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.qtySoldTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.UpdateSoldQtyForSelectedItemButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -98,9 +98,9 @@
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.qtySoldTextBox);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.UpdateSoldQtyForSelectedItemButton);
             this.groupBox2.Location = new System.Drawing.Point(376, 317);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(617, 179);
@@ -142,12 +142,12 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Quantity Restocked:";
             // 
-            // textBox1
+            // qtySoldTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(142, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 2;
+            this.qtySoldTextBox.Location = new System.Drawing.Point(142, 29);
+            this.qtySoldTextBox.Name = "qtySoldTextBox";
+            this.qtySoldTextBox.Size = new System.Drawing.Size(100, 22);
+            this.qtySoldTextBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -158,14 +158,15 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Quantity Sold:";
             // 
-            // button2
+            // UpdateSoldQtyForSelectedItemButton
             // 
-            this.button2.Location = new System.Drawing.Point(72, 63);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 46);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Update Sold Qty For Selected Item";
-            this.button2.UseVisualStyleBackColor = true;
+            this.UpdateSoldQtyForSelectedItemButton.Location = new System.Drawing.Point(72, 63);
+            this.UpdateSoldQtyForSelectedItemButton.Name = "UpdateSoldQtyForSelectedItemButton";
+            this.UpdateSoldQtyForSelectedItemButton.Size = new System.Drawing.Size(139, 46);
+            this.UpdateSoldQtyForSelectedItemButton.TabIndex = 0;
+            this.UpdateSoldQtyForSelectedItemButton.Text = "Update Sold Qty For Selected Item";
+            this.UpdateSoldQtyForSelectedItemButton.UseVisualStyleBackColor = true;
+            this.UpdateSoldQtyForSelectedItemButton.Click += new System.EventHandler(this.UpdateSoldQtyForSelectedItemButton_Click);
             // 
             // groupBox3
             // 
@@ -207,17 +208,17 @@
             this.button5.Text = "Save Grocery Data";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // statusLabel
             // 
-            this.label4.BackColor = System.Drawing.Color.DarkGray;
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(376, 508);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(617, 62);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "label4";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.statusLabel.BackColor = System.Drawing.Color.DarkGray;
+            this.statusLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.Location = new System.Drawing.Point(376, 508);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(617, 62);
+            this.statusLabel.TabIndex = 5;
+            this.statusLabel.Text = " Operation Status Update Displayed Here";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -225,13 +226,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PeachPuff;
             this.ClientSize = new System.Drawing.Size(1401, 580);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groceryListBox);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -253,14 +255,14 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox qtySoldTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button UpdateSoldQtyForSelectedItemButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label statusLabel;
     }
 }
 
