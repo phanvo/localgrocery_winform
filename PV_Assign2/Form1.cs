@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* CSIS-1175-004_15063_202010 - Introduction to Programming
+ * Student name: Vo, Phan Thu Nhat
+ * Student ID: 300320809
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -143,6 +148,43 @@ namespace PV_Assign2
                     LoadToGroceryListBox(groceryListBox.SelectedIndex);
 
                     statusLabel.Text = $"Incremented Qty Sold for the item with Item Code {selectedItem.ItemCode}";
+                }
+            }
+        }
+
+        private void UpdateRestockedQtyForSelectedItemButton_Click(object sender, EventArgs e)
+        {
+            UpdateRestockedQtyForSelectedItem();
+        }
+
+        private void UpdateRestockedQtyForSelectedItem()
+        {
+            if (groceryListBox.Items.Count == 0)
+            {
+                statusLabel.Text = "The grocery items list is empty!";
+            }
+            else if (groceryListBox.SelectedIndex == -1 || groceryListBox.SelectedIndex == 0)
+            {
+                statusLabel.Text = "Please select a grocery item to increment restocked qty";
+            }
+            else
+            {
+                //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+
+                Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+
+                int.TryParse(qtyRestockedTextBox.Text, out int qtyRestockedInput);
+                if (qtyRestockedInput <= 0)
+                {
+                    statusLabel.Text = "Invalid Quantity Restocked input!";
+                }
+                else
+                {
+                    selectedItem.QtyRestocked += qtyRestockedInput;
+
+                    LoadToGroceryListBox(groceryListBox.SelectedIndex);
+
+                    statusLabel.Text = $"Incremented Restocked Qty for the item with Item Code {selectedItem.ItemCode}";
                 }
             }
         }

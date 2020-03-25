@@ -34,8 +34,8 @@
             this.LoadDataButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.UpdateRestockedQtyForSelectedItemButton = new System.Windows.Forms.Button();
+            this.qtyRestockedTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.qtySoldTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -95,8 +95,8 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.UpdateRestockedQtyForSelectedItemButton);
+            this.groupBox2.Controls.Add(this.qtyRestockedTextBox);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.qtySoldTextBox);
             this.groupBox2.Controls.Add(this.label2);
@@ -117,21 +117,22 @@
             this.button4.Text = "Delete Selected Grocery Item";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // UpdateRestockedQtyForSelectedItemButton
             // 
-            this.button3.Location = new System.Drawing.Point(374, 63);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(174, 46);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Update Restocked Qty For Selected Item";
-            this.button3.UseVisualStyleBackColor = true;
+            this.UpdateRestockedQtyForSelectedItemButton.Location = new System.Drawing.Point(374, 63);
+            this.UpdateRestockedQtyForSelectedItemButton.Name = "UpdateRestockedQtyForSelectedItemButton";
+            this.UpdateRestockedQtyForSelectedItemButton.Size = new System.Drawing.Size(174, 46);
+            this.UpdateRestockedQtyForSelectedItemButton.TabIndex = 5;
+            this.UpdateRestockedQtyForSelectedItemButton.Text = "Update Restocked Qty For Selected Item";
+            this.UpdateRestockedQtyForSelectedItemButton.UseVisualStyleBackColor = true;
+            this.UpdateRestockedQtyForSelectedItemButton.Click += new System.EventHandler(this.UpdateRestockedQtyForSelectedItemButton_Click);
             // 
-            // textBox2
+            // qtyRestockedTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(478, 29);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 4;
+            this.qtyRestockedTextBox.Location = new System.Drawing.Point(478, 29);
+            this.qtyRestockedTextBox.Name = "qtyRestockedTextBox";
+            this.qtyRestockedTextBox.Size = new System.Drawing.Size(100, 22);
+            this.qtyRestockedTextBox.TabIndex = 4;
             // 
             // label3
             // 
@@ -212,7 +213,7 @@
             // 
             this.statusLabel.BackColor = System.Drawing.Color.DarkGray;
             this.statusLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.Location = new System.Drawing.Point(376, 508);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(617, 62);
@@ -252,8 +253,8 @@
         private System.Windows.Forms.Button LoadDataButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button UpdateRestockedQtyForSelectedItemButton;
+        private System.Windows.Forms.TextBox qtyRestockedTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox qtySoldTextBox;
         private System.Windows.Forms.Label label2;
