@@ -208,5 +208,40 @@ namespace PV_Assign2
 
             statusLabel.Text = $"Deleted record for item with Item Code {selectedItemCode}";
         }
+
+        private void SaveGroceryDataButton_Click(object sender, EventArgs e)
+        {
+            WriteToFile("updatedgrocery.csv");
+        }
+
+        private void WriteToFile(string fileName)
+        {
+            try
+            {
+                using (StreamWriter myOutputStream = new StreamWriter(fileName))
+                {
+                    //string headerLine = "Location\tState\tMileMarker" +
+                    //    "\tLT1-LT2-LT3-LT4\tHT1-HT2-HT3";
+
+                    //headerLine = System.Text.RegularExpressions.Regex.Replace(headerLine, @"\s+", ",");
+
+                    string firstRow = "ItemName,ItemCode,UnitPrice,StartingQty,QtyMinForRestock,QtySold,QtyRestocked";
+                    myOutputStream.WriteLine(firstRow);
+
+                    foreach (Grocery item in groceryList)
+                    {
+                        string nextRow = $"{item.ItemName},{item.ItemCode},{item.UnitPrice},{item.StartingQty}," +
+                                         $"{item.QtyMinForRestock},{item.QtySold},{item.QtyRestocked}";
+                        myOutputStream.WriteLine(nextRow);
+                    }
+
+                    statusLabel.Text = $"Saved {groceryList.Count} records into the output inventory file";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
