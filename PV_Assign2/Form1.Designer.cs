@@ -33,7 +33,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LoadDataButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.DeleteSelectedItemButton = new System.Windows.Forms.Button();
             this.UpdateRestockedQtyForSelectedItemButton = new System.Windows.Forms.Button();
             this.qtyRestockedTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -94,7 +94,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
-            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.DeleteSelectedItemButton);
             this.groupBox2.Controls.Add(this.UpdateRestockedQtyForSelectedItemButton);
             this.groupBox2.Controls.Add(this.qtyRestockedTextBox);
             this.groupBox2.Controls.Add(this.label3);
@@ -108,14 +108,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Update Data";
             // 
-            // button4
+            // DeleteSelectedItemButton
             // 
-            this.button4.Location = new System.Drawing.Point(187, 126);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(218, 40);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Delete Selected Grocery Item";
-            this.button4.UseVisualStyleBackColor = true;
+            this.DeleteSelectedItemButton.Location = new System.Drawing.Point(187, 126);
+            this.DeleteSelectedItemButton.Name = "DeleteSelectedItemButton";
+            this.DeleteSelectedItemButton.Size = new System.Drawing.Size(218, 40);
+            this.DeleteSelectedItemButton.TabIndex = 6;
+            this.DeleteSelectedItemButton.Text = "Delete Selected Grocery Item";
+            this.DeleteSelectedItemButton.UseVisualStyleBackColor = true;
+            this.DeleteSelectedItemButton.Click += new System.EventHandler(this.DeleteSelectedItemButton_Click);
             // 
             // UpdateRestockedQtyForSelectedItemButton
             // 
@@ -252,7 +253,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button LoadDataButton;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button DeleteSelectedItemButton;
         private System.Windows.Forms.Button UpdateRestockedQtyForSelectedItemButton;
         private System.Windows.Forms.TextBox qtyRestockedTextBox;
         private System.Windows.Forms.Label label3;

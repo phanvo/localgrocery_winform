@@ -115,6 +115,22 @@ namespace PV_Assign2
             }
         }
 
+        private bool isValidGroceryItemToSelect(string funcStr)
+        {
+            if (groceryListBox.Items.Count == 0)
+            {
+                statusLabel.Text = "The grocery items list is empty!";
+                return false;
+            }
+            else if (groceryListBox.SelectedIndex == -1 || groceryListBox.SelectedIndex == 0)
+            {
+                statusLabel.Text = "Please select a grocery item to " + funcStr;
+                return false;
+            }
+
+            return true;
+        }
+
         private void UpdateSoldQtyForSelectedItemButton_Click(object sender, EventArgs e)
         {
             UpdateSoldQtyForSelectedItem();
@@ -122,33 +138,25 @@ namespace PV_Assign2
 
         private void UpdateSoldQtyForSelectedItem()
         {
-            if (groceryListBox.Items.Count == 0)
+            if (!isValidGroceryItemToSelect("increment sold qty"))
+                return;
+
+            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+
+            Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+                
+            int.TryParse(qtySoldTextBox.Text, out int qtySoldInput);
+            if (qtySoldInput <= 0 || qtySoldInput > selectedItem.QtyHand)
             {
-                statusLabel.Text = "The grocery items list is empty!";
-            }
-            else if (groceryListBox.SelectedIndex == -1 || groceryListBox.SelectedIndex == 0)
-            {
-                statusLabel.Text = "Please select a grocery item to increment sold qty";
+                statusLabel.Text = "Invalid Quantity Sold input!";
             }
             else
             {
-                //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+                selectedItem.QtySold += qtySoldInput;
 
-                Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
-                
-                int.TryParse(qtySoldTextBox.Text, out int qtySoldInput);
-                if (qtySoldInput <= 0 || qtySoldInput > selectedItem.QtyHand)
-                {
-                    statusLabel.Text = "Invalid Quantity Sold input!";
-                }
-                else
-                {
-                    selectedItem.QtySold += qtySoldInput;
+                LoadToGroceryListBox(groceryListBox.SelectedIndex);
 
-                    LoadToGroceryListBox(groceryListBox.SelectedIndex);
-
-                    statusLabel.Text = $"Incremented Qty Sold for the item with Item Code {selectedItem.ItemCode}";
-                }
+                statusLabel.Text = $"Incremented Qty Sold for the item with Item Code {selectedItem.ItemCode}";
             }
         }
 
@@ -159,34 +167,46 @@ namespace PV_Assign2
 
         private void UpdateRestockedQtyForSelectedItem()
         {
-            if (groceryListBox.Items.Count == 0)
+            if (!isValidGroceryItemToSelect("increment restocked qty"))
+                return;
+
+            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+
+            Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+
+            int.TryParse(qtyRestockedTextBox.Text, out int qtyRestockedInput);
+            if (qtyRestockedInput <= 0)
             {
-                statusLabel.Text = "The grocery items list is empty!";
-            }
-            else if (groceryListBox.SelectedIndex == -1 || groceryListBox.SelectedIndex == 0)
-            {
-                statusLabel.Text = "Please select a grocery item to increment restocked qty";
+                statusLabel.Text = "Invalid Quantity Restocked input!";
             }
             else
             {
-                //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+                selectedItem.QtyRestocked += qtyRestockedInput;
 
-                Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+                LoadToGroceryListBox(groceryListBox.SelectedIndex);
 
-                int.TryParse(qtyRestockedTextBox.Text, out int qtyRestockedInput);
-                if (qtyRestockedInput <= 0)
-                {
-                    statusLabel.Text = "Invalid Quantity Restocked input!";
-                }
-                else
-                {
-                    selectedItem.QtyRestocked += qtyRestockedInput;
-
-                    LoadToGroceryListBox(groceryListBox.SelectedIndex);
-
-                    statusLabel.Text = $"Incremented Restocked Qty for the item with Item Code {selectedItem.ItemCode}";
-                }
+                statusLabel.Text = $"Incremented Restocked Qty for the item with Item Code {selectedItem.ItemCode}";
             }
+        }
+
+        private void DeleteSelectedItemButton_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedItem();
+        }
+
+        private void DeleteSelectedItem()
+        {
+            if (!isValidGroceryItemToSelect("delete"))
+                return;
+
+            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+
+            string selectedItemCode = groceryList[groceryListBox.SelectedIndex - 1].ItemCode;
+
+            groceryList.RemoveAt(groceryListBox.SelectedIndex - 1);
+            groceryListBox.Items.RemoveAt(groceryListBox.SelectedIndex);
+
+            statusLabel.Text = $"Deleted record for item with Item Code {selectedItemCode}";
         }
     }
 }
