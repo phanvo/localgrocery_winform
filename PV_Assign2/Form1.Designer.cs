@@ -42,7 +42,7 @@
             this.UpdateSoldQtyForSelectedItemButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.SaveSalesButton = new System.Windows.Forms.Button();
             this.SaveGroceryDataButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -174,7 +174,7 @@
             // 
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Controls.Add(this.SaveSalesButton);
             this.groupBox3.Controls.Add(this.SaveGroceryDataButton);
             this.groupBox3.Location = new System.Drawing.Point(1045, 317);
             this.groupBox3.Name = "groupBox3";
@@ -192,14 +192,15 @@
             this.button7.Text = "Save Restock Needs Report";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // SaveSalesButton
             // 
-            this.button6.Location = new System.Drawing.Point(44, 89);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(159, 34);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "Save Sales Report";
-            this.button6.UseVisualStyleBackColor = true;
+            this.SaveSalesButton.Location = new System.Drawing.Point(44, 89);
+            this.SaveSalesButton.Name = "SaveSalesButton";
+            this.SaveSalesButton.Size = new System.Drawing.Size(159, 34);
+            this.SaveSalesButton.TabIndex = 1;
+            this.SaveSalesButton.Text = "Save Sales Report";
+            this.SaveSalesButton.UseVisualStyleBackColor = true;
+            this.SaveSalesButton.Click += new System.EventHandler(this.SaveSalesButton_Click);
             // 
             // SaveGroceryDataButton
             // 
@@ -263,7 +264,7 @@
         private System.Windows.Forms.Button UpdateSoldQtyForSelectedItemButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button SaveSalesButton;
         private System.Windows.Forms.Button SaveGroceryDataButton;
         private System.Windows.Forms.Label statusLabel;
     }

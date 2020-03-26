@@ -209,12 +209,7 @@ namespace PV_Assign2
             statusLabel.Text = $"Deleted record for item with Item Code {selectedItemCode}";
         }
 
-        private void SaveGroceryDataButton_Click(object sender, EventArgs e)
-        {
-            WriteToFile("updatedgrocery.csv");
-        }
-
-        private void WriteToFile(string fileName)
+        private void WriteToFile(string fileName, int type = 1)
         {
             try
             {
@@ -225,23 +220,70 @@ namespace PV_Assign2
 
                     //headerLine = System.Text.RegularExpressions.Regex.Replace(headerLine, @"\s+", ",");
 
-                    string firstRow = "ItemName,ItemCode,UnitPrice,StartingQty,QtyMinForRestock,QtySold,QtyRestocked";
-                    myOutputStream.WriteLine(firstRow);
-
-                    foreach (Grocery item in groceryList)
+                    string firstRow = "";
+                    switch (type)
                     {
-                        string nextRow = $"{item.ItemName},{item.ItemCode},{item.UnitPrice},{item.StartingQty}," +
-                                         $"{item.QtyMinForRestock},{item.QtySold},{item.QtyRestocked}";
-                        myOutputStream.WriteLine(nextRow);
+                        case 1:
+                            firstRow = "ItemName,ItemCode,UnitPrice,StartingQty,QtyMinForRestock,QtySold,QtyRestocked";
+                            break;
+                        case 2:
+                            firstRow = "ItemName,ItemCode,UnitPrice,QtySold,Sales";
+                            break;
                     }
 
-                    statusLabel.Text = $"Saved {groceryList.Count} records into the output inventory file";
+                    if (firstRow.Length > 0)
+                        myOutputStream.WriteLine(firstRow);
+
+                    int recordCount = 0;
+                    foreach (Grocery item in groceryList)
+                    {
+                        string nextRow = "";
+
+                        if (type == 1)
+                        {
+                            nextRow = item.ToString(1);
+                        }
+                        else if (type == 2 && item.QtySold > 0)
+                        {
+                            nextRow = item.ToString(2);
+                        }
+
+                        if (nextRow.Length > 0)
+                        {
+                            myOutputStream.WriteLine(nextRow);
+                            recordCount++;
+                        }
+                    }
+
+                    string fileInfo = "";
+                    switch (type)
+                    {
+                        case 1:
+                            fileInfo = "output inventory file";
+                            break;
+                        case 2:
+                            fileInfo = "output sales file";
+                            break;
+                    }
+
+                    if (fileInfo.Length > 0)
+                        statusLabel.Text = $"Saved {recordCount} records into the " + fileInfo;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void SaveGroceryDataButton_Click(object sender, EventArgs e)
+        {
+            WriteToFile("updatedgrocery.csv", 1);
+        }
+
+        private void SaveSalesButton_Click(object sender, EventArgs e)
+        {
+            WriteToFile("grocerysales.csv", 2);
         }
     }
 }

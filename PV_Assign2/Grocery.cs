@@ -51,10 +51,29 @@ namespace PV_Assign2
 
         public override string ToString()
         {
-            string outputStr = "{0, -25}{1, -15}{2, -15:C2}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15:C2}";
-            return String.Format(outputStr, ItemName, ItemCode, UnitPrice, StartingQty, QtyMinForRestock,
-                                            QtySold, QtyRestocked, QtyHand, TotalSales);
+            return ToString();
         }
 
+        public string ToString(int type = 0)
+        {
+            string outputStr = "";
+
+            switch (type)
+            {
+                case 1:
+                    outputStr = $"{ItemName},{ItemCode},{UnitPrice},{StartingQty},{QtyMinForRestock},{QtySold},{QtyRestocked}";
+                    break;
+                case 2:
+                    outputStr = $"{ItemName},{ItemCode},{UnitPrice},{QtySold},{TotalSales}";
+                    break;
+                default:
+                    outputStr = "{0, -25}{1, -15}{2, -15:C2}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15:C2}";
+                    outputStr = String.Format(outputStr, ItemName, ItemCode, UnitPrice, StartingQty, QtyMinForRestock,
+                                            QtySold, QtyRestocked, QtyHand, TotalSales);
+                    break;
+            }
+
+            return outputStr;
+        }
     }
 }
