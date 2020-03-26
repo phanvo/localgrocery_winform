@@ -229,6 +229,9 @@ namespace PV_Assign2
                         case 2:
                             firstRow = "ItemName,ItemCode,UnitPrice,QtySold,Sales";
                             break;
+                        case 3:
+                            firstRow = "ItemName,ItemCode,QtyHand,QtyMinForRestock";
+                            break;
                     }
 
                     if (firstRow.Length > 0)
@@ -247,6 +250,10 @@ namespace PV_Assign2
                         {
                             nextRow = item.ToString(2);
                         }
+                        else if (type == 3 && item.QtyHand < item.QtyMinForRestock)
+                        {
+                            nextRow = item.ToString(3);
+                        }
 
                         if (nextRow.Length > 0)
                         {
@@ -263,6 +270,9 @@ namespace PV_Assign2
                             break;
                         case 2:
                             fileInfo = "output sales file";
+                            break;
+                        case 3:
+                            fileInfo = "restocks needed output file";
                             break;
                     }
 
@@ -284,6 +294,11 @@ namespace PV_Assign2
         private void SaveSalesButton_Click(object sender, EventArgs e)
         {
             WriteToFile("grocerysales.csv", 2);
+        }
+
+        private void SaveRestockNeedsButton_Click(object sender, EventArgs e)
+        {
+            WriteToFile("groceryrestocks.csv", 3);
         }
     }
 }

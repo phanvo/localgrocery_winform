@@ -41,7 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.UpdateSoldQtyForSelectedItemButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.SaveRestockNeedsButton = new System.Windows.Forms.Button();
             this.SaveSalesButton = new System.Windows.Forms.Button();
             this.SaveGroceryDataButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
@@ -173,7 +173,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
-            this.groupBox3.Controls.Add(this.button7);
+            this.groupBox3.Controls.Add(this.SaveRestockNeedsButton);
             this.groupBox3.Controls.Add(this.SaveSalesButton);
             this.groupBox3.Controls.Add(this.SaveGroceryDataButton);
             this.groupBox3.Location = new System.Drawing.Point(1045, 317);
@@ -183,14 +183,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Save Data";
             // 
-            // button7
+            // SaveRestockNeedsButton
             // 
-            this.button7.Location = new System.Drawing.Point(16, 145);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(216, 34);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "Save Restock Needs Report";
-            this.button7.UseVisualStyleBackColor = true;
+            this.SaveRestockNeedsButton.Location = new System.Drawing.Point(16, 145);
+            this.SaveRestockNeedsButton.Name = "SaveRestockNeedsButton";
+            this.SaveRestockNeedsButton.Size = new System.Drawing.Size(216, 34);
+            this.SaveRestockNeedsButton.TabIndex = 2;
+            this.SaveRestockNeedsButton.Text = "Save Restock Needs Report";
+            this.SaveRestockNeedsButton.UseVisualStyleBackColor = true;
+            this.SaveRestockNeedsButton.Click += new System.EventHandler(this.SaveRestockNeedsButton_Click);
             // 
             // SaveSalesButton
             // 
@@ -263,7 +264,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button UpdateSoldQtyForSelectedItemButton;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button SaveRestockNeedsButton;
         private System.Windows.Forms.Button SaveSalesButton;
         private System.Windows.Forms.Button SaveGroceryDataButton;
         private System.Windows.Forms.Label statusLabel;

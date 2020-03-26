@@ -64,7 +64,10 @@ namespace PV_Assign2
                     outputStr = $"{ItemName},{ItemCode},{UnitPrice},{StartingQty},{QtyMinForRestock},{QtySold},{QtyRestocked}";
                     break;
                 case 2:
-                    outputStr = $"{ItemName},{ItemCode},{UnitPrice},{QtySold},{TotalSales}";
+                    outputStr = $"{ItemName},{ItemCode},{UnitPrice:C},{QtySold},{TotalSales:C}";
+                    break;
+                case 3:
+                    outputStr = $"{ItemName},{ItemCode},{QtyHand},{QtyMinForRestock}";
                     break;
                 default:
                     outputStr = "{0, -25}{1, -15}{2, -15:C2}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15:C2}";
