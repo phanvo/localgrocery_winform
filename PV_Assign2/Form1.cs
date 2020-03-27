@@ -27,17 +27,24 @@ namespace PV_Assign2
 
         private void LoadDataButton_Click(object sender, EventArgs e)
         {
-            //Read from file method using file name
-            ReadFromFile("localgrocery.csv");
+            //Read from file method
+            ReadFromFile();
         }
 
-        private void ReadFromFile(string fileName)
+        private void ReadFromFile()
         {
             try
             {
                 //remove all elements of groceryList 
                 groceryList.Clear();
                 groceryListBox.Items.Clear();
+
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "CSV file|*.csv",
+                    Title = "Open a CSV File"
+                };
+                string fileName = (openFileDialog.ShowDialog() == DialogResult.OK) ? openFileDialog.FileName : "localgrocery.csv";
 
                 using (StreamReader myInputStream = new StreamReader(fileName))
                 {
@@ -50,11 +57,11 @@ namespace PV_Assign2
                         string[] fieldsArray = headerLine.Split(',');
 
                         headerLine = $"{fieldsArray[0], -25}{fieldsArray[1], -15}{fieldsArray[2], -15}{fieldsArray[3], -15}" +
-                                     $"{fieldsArray[4], -20}{fieldsArray[5], -15}{fieldsArray[6], -15}{"QtyHand", -15}{"Sales", -15}";
+                                        $"{fieldsArray[4], -20}{fieldsArray[5], -15}{fieldsArray[6], -15}{"QtyHand", -15}{"Sales", -15}";
 
                         groceryListBox.Items.Add(headerLine);
                     }
-                    
+
                     while (!myInputStream.EndOfStream)
                     {
                         string eachLine = myInputStream.ReadLine();
@@ -68,7 +75,7 @@ namespace PV_Assign2
                         int.TryParse(fieldsArray[6], out int qtyRestocked);
 
                         Grocery item = new Grocery(itemName, itemCode, unitPrice, startingQty,
-                                                             qtyMinForRestock, qtySold, qtyRestocked);
+                                                                qtyMinForRestock, qtySold, qtyRestocked);
 
                         groceryList.Add(item);
                         groceryListBox.Items.Add(item);
@@ -196,66 +203,80 @@ namespace PV_Assign2
         {
             try
             {
-                using (StreamWriter myOutputStream = new StreamWriter(fileName))
+                SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
-                    string firstRow = "";
-                    switch (type)
+                    Filter = "CSV file|*.csv",
+                    Title = "Save a CSV File",
+                    FileName = fileName
+                };
+
+                if(saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter myOutputStream = new StreamWriter(saveFileDialog.FileName))
                     {
-                        case 1:
-                            firstRow = "ItemName,ItemCode,UnitPrice,StartingQty,QtyMinForRestock,QtySold,QtyRestocked";
-                            break;
-                        case 2:
-                            firstRow = "ItemName,ItemCode,UnitPrice,QtySold,Sales";
-                            break;
-                        case 3:
-                            firstRow = "ItemName,ItemCode,QtyHand,QtyMinForRestock";
-                            break;
+                        string firstRow = "";
+                        switch (type)
+                        {
+                            case 1:
+                                firstRow = "ItemName,ItemCode,UnitPrice,StartingQty,QtyMinForRestock,QtySold,QtyRestocked";
+                                break;
+                            case 2:
+                                firstRow = "ItemName,ItemCode,UnitPrice,QtySold,Sales";
+                                break;
+                            case 3:
+                                firstRow = "ItemName,ItemCode,QtyHand,QtyMinForRestock";
+                                break;
+                        }
+
+                        if (firstRow.Length > 0)
+                            myOutputStream.WriteLine(firstRow);
+
+                        int recordCount = 0;
+                        foreach (Grocery item in groceryList)
+                        {
+                            string nextRow = "";
+
+                            if (type == 1)
+                            {
+                                nextRow = item.ToString(1);
+                            }
+                            else if (type == 2 && item.QtySold > 0)
+                            {
+                                nextRow = item.ToString(2);
+                            }
+                            else if (type == 3 && item.QtyHand < item.QtyMinForRestock)
+                            {
+                                nextRow = item.ToString(3);
+                            }
+
+                            if (nextRow.Length > 0)
+                            {
+                                myOutputStream.WriteLine(nextRow);
+                                recordCount++;
+                            }
+                        }
+
+                        string fileInfo = "";
+                        switch (type)
+                        {
+                            case 1:
+                                fileInfo = "output inventory file";
+                                break;
+                            case 2:
+                                fileInfo = "output sales file";
+                                break;
+                            case 3:
+                                fileInfo = "restocks needed output file";
+                                break;
+                        }
+
+                        if (fileInfo.Length > 0)
+                            statusLabel.Text = $"Saved {recordCount} records into the " + fileInfo;
                     }
-
-                    if (firstRow.Length > 0)
-                        myOutputStream.WriteLine(firstRow);
-
-                    int recordCount = 0;
-                    foreach (Grocery item in groceryList)
-                    {
-                        string nextRow = "";
-
-                        if (type == 1)
-                        {
-                            nextRow = item.ToString(1);
-                        }
-                        else if (type == 2 && item.QtySold > 0)
-                        {
-                            nextRow = item.ToString(2);
-                        }
-                        else if (type == 3 && item.QtyHand < item.QtyMinForRestock)
-                        {
-                            nextRow = item.ToString(3);
-                        }
-
-                        if (nextRow.Length > 0)
-                        {
-                            myOutputStream.WriteLine(nextRow);
-                            recordCount++;
-                        }
-                    }
-
-                    string fileInfo = "";
-                    switch (type)
-                    {
-                        case 1:
-                            fileInfo = "output inventory file";
-                            break;
-                        case 2:
-                            fileInfo = "output sales file";
-                            break;
-                        case 3:
-                            fileInfo = "restocks needed output file";
-                            break;
-                    }
-
-                    if (fileInfo.Length > 0)
-                        statusLabel.Text = $"Saved {recordCount} records into the " + fileInfo;
+                }
+                else
+                {
+                    statusLabel.Text = $"Save operation cancelled";
                 }
             }
             catch (Exception ex)
