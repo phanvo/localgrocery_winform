@@ -19,7 +19,6 @@ namespace PV_Assign2
     public partial class Form1 : Form
     {
         private List<Grocery> groceryList = new List<Grocery>();
-        private string headerLine;
 
         public Form1()
         {
@@ -38,7 +37,7 @@ namespace PV_Assign2
             {
                 //remove all elements of groceryList 
                 groceryList.Clear();
-                //groceryListBox.Items.Clear();
+                groceryListBox.Items.Clear();
 
                 using (StreamReader myInputStream = new StreamReader(fileName))
                 {
@@ -47,13 +46,13 @@ namespace PV_Assign2
                         //Header Line or first line of file typically has column names or header names (no numeric data), 
                         //so it must be treated different 
                         //than other lines in the file
-                        headerLine = myInputStream.ReadLine();
+                        string headerLine = myInputStream.ReadLine();
                         string[] fieldsArray = headerLine.Split(',');
-                        headerLine = String.Format("{0, -25}{1, -15}{2, -15}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15}",
-                                                    fieldsArray[0], fieldsArray[1], fieldsArray[2], fieldsArray[3],
-                                                    fieldsArray[4], fieldsArray[5], fieldsArray[6], "QtyHand", "Sales");
 
-                        //groceryListBox.Items.Add(headerLine);
+                        headerLine = $"{fieldsArray[0], -25}{fieldsArray[1], -15}{fieldsArray[2], -15}{fieldsArray[3], -15}" +
+                                     $"{fieldsArray[4], -20}{fieldsArray[5], -15}{fieldsArray[6], -15}{"QtyHand", -15}{"Sales", -15}";
+
+                        groceryListBox.Items.Add(headerLine);
                     }
                     
                     while (!myInputStream.EndOfStream)
@@ -68,17 +67,13 @@ namespace PV_Assign2
                         int.TryParse(fieldsArray[5], out int qtySold);
                         int.TryParse(fieldsArray[6], out int qtyRestocked);
 
-                        //Grocery item = new Grocery(itemName, itemCode, unitPrice, startingQty,
-                        //                                     qtyMinForRestock, qtySold, qtyRestocked);
+                        Grocery item = new Grocery(itemName, itemCode, unitPrice, startingQty,
+                                                             qtyMinForRestock, qtySold, qtyRestocked);
 
-                        //groceryListBox.Items.Add(item);
-
-                        groceryList.Add(new Grocery(itemName, itemCode, unitPrice, startingQty,
-                                                             qtyMinForRestock, qtySold, qtyRestocked));
+                        groceryList.Add(item);
+                        groceryListBox.Items.Add(item);
                     }
                 }
-
-                LoadToGroceryListBox();
 
                 statusLabel.Text = $"Loaded {groceryList.Count} items from the input file";
             }
@@ -88,34 +83,7 @@ namespace PV_Assign2
             }
         }
 
-        private void LoadToGroceryListBox(int oldSelectedIndex = 0)
-        {
-            //clear listbox and then load all shoal objects 
-            //from shoal list to list box 
-
-            //After clearing output list box, load all shoal objects from ShoalList list to output list box, 
-            //ListBox contains a list of items, each item corresponds to one object coverted to String using
-            //ToString() method defined in the class, and then add the string to the listbox
-            //Make sure you understand the purpose of listbox and list of shoal objects, and the difference between
-            //ShoalList and outputListBox here. outputListBox is just for viewing the data
-            //ShoalList is the actual data
-
-            groceryListBox.Items.Clear();
-
-            groceryListBox.Items.Add(headerLine);
-
-            foreach (Grocery item in groceryList)
-            {
-                groceryListBox.Items.Add(item);
-            }
-
-            if (oldSelectedIndex > 0)
-            {
-                groceryListBox.SelectedIndex = oldSelectedIndex;
-            }
-        }
-
-        private bool isValidGroceryItemToSelect(string funcStr)
+        private bool IsValidGroceryItemToSelect(string funcStr)
         {
             if (groceryListBox.Items.Count == 0)
             {
@@ -138,25 +106,30 @@ namespace PV_Assign2
 
         private void UpdateSoldQtyForSelectedItem()
         {
-            if (!isValidGroceryItemToSelect("increment sold qty"))
-                return;
-
-            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
-
-            Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
-                
-            int.TryParse(qtySoldTextBox.Text, out int qtySoldInput);
-            if (qtySoldInput <= 0 || qtySoldInput > selectedItem.QtyHand)
+            try
             {
-                statusLabel.Text = "Invalid Quantity Sold input!";
+                if (!IsValidGroceryItemToSelect("increment sold qty"))
+                    return;
+
+                Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+
+                int.TryParse(qtySoldTextBox.Text, out int qtySoldInput);
+                if (qtySoldInput <= 0 || qtySoldInput > selectedItem.QtyHand)
+                {
+                    statusLabel.Text = "Invalid Quantity Sold input!";
+                }
+                else
+                {
+                    selectedItem.QtySold += qtySoldInput;
+
+                    groceryListBox.Items[groceryListBox.SelectedIndex] = selectedItem;
+
+                    statusLabel.Text = $"Incremented Qty Sold for the item with Item Code {selectedItem.ItemCode}";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                selectedItem.QtySold += qtySoldInput;
-
-                LoadToGroceryListBox(groceryListBox.SelectedIndex);
-
-                statusLabel.Text = $"Incremented Qty Sold for the item with Item Code {selectedItem.ItemCode}";
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -167,25 +140,30 @@ namespace PV_Assign2
 
         private void UpdateRestockedQtyForSelectedItem()
         {
-            if (!isValidGroceryItemToSelect("increment restocked qty"))
-                return;
-
-            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
-
-            Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
-
-            int.TryParse(qtyRestockedTextBox.Text, out int qtyRestockedInput);
-            if (qtyRestockedInput <= 0)
+            try
             {
-                statusLabel.Text = "Invalid Quantity Restocked input!";
+                if (!IsValidGroceryItemToSelect("increment restocked qty"))
+                    return;
+
+                Grocery selectedItem = groceryList[groceryListBox.SelectedIndex - 1];
+
+                int.TryParse(qtyRestockedTextBox.Text, out int qtyRestockedInput);
+                if (qtyRestockedInput <= 0)
+                {
+                    statusLabel.Text = "Invalid Quantity Restocked input!";
+                }
+                else
+                {
+                    selectedItem.QtyRestocked += qtyRestockedInput;
+
+                    groceryListBox.Items[groceryListBox.SelectedIndex] = selectedItem;
+
+                    statusLabel.Text = $"Incremented Restocked Qty for the item with Item Code {selectedItem.ItemCode}";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                selectedItem.QtyRestocked += qtyRestockedInput;
-
-                LoadToGroceryListBox(groceryListBox.SelectedIndex);
-
-                statusLabel.Text = $"Incremented Restocked Qty for the item with Item Code {selectedItem.ItemCode}";
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -196,17 +174,22 @@ namespace PV_Assign2
 
         private void DeleteSelectedItem()
         {
-            if (!isValidGroceryItemToSelect("delete"))
-                return;
+            try
+            {
+                if (!IsValidGroceryItemToSelect("delete"))
+                    return;
 
-            //MessageBox.Show(String.Format("{0}  -  {1}", groceryListBox.SelectedIndex, groceryList[groceryListBox.SelectedIndex - 1]));
+                string selectedItemCode = groceryList[groceryListBox.SelectedIndex - 1].ItemCode;
 
-            string selectedItemCode = groceryList[groceryListBox.SelectedIndex - 1].ItemCode;
+                groceryList.RemoveAt(groceryListBox.SelectedIndex - 1);
+                groceryListBox.Items.RemoveAt(groceryListBox.SelectedIndex);
 
-            groceryList.RemoveAt(groceryListBox.SelectedIndex - 1);
-            groceryListBox.Items.RemoveAt(groceryListBox.SelectedIndex);
-
-            statusLabel.Text = $"Deleted record for item with Item Code {selectedItemCode}";
+                statusLabel.Text = $"Deleted record for item with Item Code {selectedItemCode}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void WriteToFile(string fileName, int type = 1)
@@ -215,11 +198,6 @@ namespace PV_Assign2
             {
                 using (StreamWriter myOutputStream = new StreamWriter(fileName))
                 {
-                    //string headerLine = "Location\tState\tMileMarker" +
-                    //    "\tLT1-LT2-LT3-LT4\tHT1-HT2-HT3";
-
-                    //headerLine = System.Text.RegularExpressions.Regex.Replace(headerLine, @"\s+", ",");
-
                     string firstRow = "";
                     switch (type)
                     {

@@ -56,23 +56,21 @@ namespace PV_Assign2
 
         public string ToString(int type = 0)
         {
-            string outputStr = "";
-
+            string outputStr;
             switch (type)
             {
                 case 1:
                     outputStr = $"{ItemName},{ItemCode},{UnitPrice},{StartingQty},{QtyMinForRestock},{QtySold},{QtyRestocked}";
                     break;
                 case 2:
-                    outputStr = $"{ItemName},{ItemCode},{UnitPrice:C},{QtySold},{TotalSales:C}";
+                    outputStr = $"{ItemName},{ItemCode},{UnitPrice:C2},{QtySold},{TotalSales:C2}";
                     break;
                 case 3:
                     outputStr = $"{ItemName},{ItemCode},{QtyHand},{QtyMinForRestock}";
                     break;
                 default:
-                    outputStr = "{0, -25}{1, -15}{2, -15:C2}{3, -15}{4, -20}{5, -15}{6, -15}{7, -15}{8, -15:C2}";
-                    outputStr = String.Format(outputStr, ItemName, ItemCode, UnitPrice, StartingQty, QtyMinForRestock,
-                                            QtySold, QtyRestocked, QtyHand, TotalSales);
+                    outputStr = $"{ItemName, -25}{ItemCode, -15}{UnitPrice, -15:C2}{StartingQty, -15}{QtyMinForRestock, -20}" +
+                                $"{QtySold, -15}{QtyRestocked, -15}{QtyHand, -15}{TotalSales, -15:C2}";
                     break;
             }
 
