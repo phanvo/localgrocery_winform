@@ -13,6 +13,7 @@ namespace PV_Assign2
 {
     class Grocery
     {
+        // auto-implemented properties
         public string ItemName { get; set; }
         public string ItemCode { get; set; }
         public double UnitPrice { get; set; }
@@ -21,6 +22,7 @@ namespace PV_Assign2
         public int QtySold { get; set; }
         public int QtyRestocked { get; set; }
 
+        // auto read-only computed property
         public int QtyHand
         {
             get
@@ -37,6 +39,7 @@ namespace PV_Assign2
             }
         }
 
+        // constructor with parameters
         public Grocery(string anyItemName, string anyItemCode, double anyUnitPrice, int anyStartingQty,
                        int anyQtyMinForRestock, int anyQtySold, int anyQtyRestocked)
         {
@@ -49,13 +52,21 @@ namespace PV_Assign2
             QtyRestocked = anyQtyRestocked;
         }
 
+        // overridden ToString() method to display default grocery item details
         public override string ToString()
         {
             return ToString();
         }
 
+        // overloaded ToString() with parameter to display grocery item details for different cases, based on type number
         public string ToString(int type = 0)
         {
+            /* case 1: used for the function "Save Grocery Data (updatedgrocery.csv)"
+             * case 2: used for the function "Save Sales Report (grocerysales.csv)"
+             * case 3: used for the function "Save Restock Needs Report (groceryrestocks.csv)"
+             * default: used for UI results in groceryListBox 
+             */
+
             string outputStr;
             switch (type)
             {

@@ -4,4 +4,4 @@ Student ID: 300320809
 
 Assignment 2 - Local Grocery Application
 
-Note: all input/output CSV files used in the app are located in the directory PV_Assign2\bin\Debug
+Note: input/output CSV files can be found in the directory PV_Assign2\bin\Debug
